@@ -1,4 +1,5 @@
 # FFC
+[![Gem Version](https://badge.fury.io/rb/ffc.svg)](https://badge.fury.io/rb/ffc)
 
 File Formats Conversion Tool
 
