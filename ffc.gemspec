@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "ffc"
   spec.version       = Conv::VERSION
   spec.authors       = ["6br"]
-  spec.email         = ["ina_univ-science@yahoo.co.jp"]
+  spec.email         = ["git_hub-ruby@yahoo.co.jp"]
 
   spec.summary       = %q{Support to convert file formats by preset UNIX commands}
   spec.description   = %q{Support to convert file formats choosing from a preset UNIX command list}

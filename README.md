@@ -12,22 +12,22 @@ Install it yourself as:
 
 ## Examples
 
-* To convert markdown file to HTML file
+To convert markdown file to HTML file:
 
     $ ffc convert a.md a.html
     $ ffc c a.md a.html
 
-* To convert "sam" format file to "bam" format file (It converts automatically if you do not know appreciate commands and parameters.)
+To convert "sam" format file to "bam" format file (It converts automatically if you do not know appreciate commands and parameters.):
 
     $ ffc convert a.sam a.bam
     $ ffc c a.sam a.bam
     
-* To show the whole list of available convert commands
+To show the whole list of available convert commands:
 
     $ ffc list a.png
     $ ffc l a.png
     
-* To show help
+To show help:
 
     $ ffc help [COMMAND]
     $ ffc h [COMMAND]
