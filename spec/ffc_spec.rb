@@ -5,8 +5,20 @@ RSpec.describe Conv do
     expect(Conv::VERSION).not_to be nil
   end
 
-  it "should display output" do
+  it "should rehash without errors" do
+    expect {Conv::CLI.new.invoke(:rehash, [], {})}.not_to raise_exception
+  end
+
+  it "should display output when no candidates" do
     expect {Conv::CLI.new.invoke(:convert, ["spec/sample/a.sam", "b.non"], {hidelist: true})}.to output("\e[31mNo candidates.\e[0m\n").to_stdout
+  end
+
+  it "should display error when no file" do
+    expect {Conv::CLI.new.invoke(:convert, ["spec/sample/no.sam", "b.bam"], {hidelist: true})}.to raise_exception(RuntimeError)
+  end
+
+  it "should display list" do
+    expect {Conv::CLI.new.invoke(:list, ["spec/sample/a.sam"], {showonly: true, overwrite: true})}.to output("[\"bam\"] samtools view -bS spec/sample/a.sam > spec/sample/a.bam  (samtools)[\"gtf\"] cufflinks spec/sample/a.sam  (cufflinks)\n").to_stdout
   end
 
 end

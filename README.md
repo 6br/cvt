@@ -1,6 +1,6 @@
 # FFC
 
-File Formats Convertion Tool
+File Formats Conversion Tool
 
 Especially, this tool may be useful for bioinformatics.
 
@@ -12,15 +12,25 @@ Install it yourself as:
 
 ## Examples
 
-* To convert markdown file to html file
+* To convert markdown file to HTML file
 
     $ ffc convert a.md a.html
     $ ffc c a.md a.html
+
+* To convert "sam" format file to "bam" format file (It converts automatically if you do not know appreciate commands and parameters.)
+
+    $ ffc convert a.sam a.bam
+    $ ffc c a.sam a.bam
     
-* To show the whole list of inputs format
+* To show the whole list of available convert commands
 
     $ ffc list a.png
     $ ffc l a.png
+    
+* To show help
+
+    $ ffc help [COMMAND]
+    $ ffc h [COMMAND]
 
 When there are alternative tools, you can select one of them.
 
@@ -29,6 +39,12 @@ When there are alternative tools, you can select one of them.
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+## Notice
+
+If there are no package to run a suggested command, this tool will install the package with `brew install` in default.
+
+If you use another package manager such as `apt`, `yum` or `conda`, you can configure the default command. But there is no interface or guide yet. 
 
 ## Contributing
 
