@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/6br/ffc.svg?branch=master)](https://travis-ci.org/6br/ffc)
 [![Stories in Ready](https://badge.waffle.io/6br/ffc.svg?label=ready&title=Ready)](http://waffle.io/6br/ffc)
 [![Code Climate](https://codeclimate.com/github/6br/ffc/badges/gpa.svg)](https://codeclimate.com/github/6br/ffc)
-[![Test Coverage](https://codeclimate.com/github/6br/ffc/badges/coverage.svg)](https://codeclimate.com/github/6br/ffc/coverage)
 
 File Formats Conversion Tool
 
