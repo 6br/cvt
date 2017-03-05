@@ -6,7 +6,9 @@ rvm:
   - 2.1
   - 2.0
 before_install: gem install bundler -v 1.14.4
-script:  bundle exec rspec
+script:
+  - bundle exec rspec
+  - bundle exec codeclimate-test-reporter
 branches:
   only:
     - master
