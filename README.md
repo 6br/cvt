@@ -1,6 +1,7 @@
 # FFC
 [![Gem Version](https://badge.fury.io/rb/ffc.svg)](https://badge.fury.io/rb/ffc)
 [![Build Status](https://travis-ci.org/6br/ffc.svg?branch=master)](https://travis-ci.org/6br/ffc)
+[![Stories in Ready](https://badge.waffle.io/6br/ffc.svg?label=ready&title=Ready)](http://waffle.io/6br/ffc)
 
 File Formats Conversion Tool
 
