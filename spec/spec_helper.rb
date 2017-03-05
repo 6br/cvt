@@ -3,10 +3,6 @@ require "ffc"
 require "stringio"
 
 require 'coveralls'
-Coveralls.wear!
-
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -16,3 +12,4 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+Coveralls.wear!
