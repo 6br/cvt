@@ -67,16 +67,21 @@ module Conv
       items << ConvItem.new(input: ["sam"], output: ["bam"], command: "samtools view -bS {input} > {output}", substitute: "{}", package: "samtools", output_buffer: :stdout)
       items << ConvItem.new(input: ["bam"], output: ["bai"], command: "samtools index {input}", substitute: "{}", package: "samtools")
       items << ConvItem.new(input: ["fa"], output: ["fai"], command: "samtools faidx {input}", substitute: "{}", package: "samtools")
+      items << ConvItem.new(input: ["fasta"], output: ["fai"], command: "samtools faidx {input}", substitute: "{}", package: "samtools")
+      #items << ConvItem.new(input: ["fa", "vcf.gz"], output: ["fa"], command: "bcftools consensus {input} {input} > {output}", substitute: "{}", package: "bcftools")
+      #items << ConvItem.new(input: ["fasta", "vcf.gz"], output: ["fa"], command: "bcftools consensus {input} {input} > {output}", substitute: "{}", package: "bcftools")
       items << ConvItem.new(input: ["bam"], output: ["fasta"], command: "samtools fasta {input} > {output}", substitute: "{}", package: "samtools")
       items << ConvItem.new(input: ["bam"], output: ["fastq"], command: "samtools fastq {input} > {output}", substitute: "{}", package: "samtools")
       items << ConvItem.new(input: ["sam"], output: ["gtf"], command: "cufflinks {input}", substitute: "{}", package: "cufflinks")
       items << ConvItem.new(input: ["bam"], output: ["gtf"], command: "cufflinks {input}", substitute: "{}", package: "cufflinks")
       items << ConvItem.new(input: ["vcf"], output: ["vcf.gz"], command: "bgzip -c {input} > {output}", substitute: "{}", package: "samtools")
       items << ConvItem.new(input: ["mid"], output: ["wav"], command: "timidity {input} -Ow -o {output}", substitute: "{}", package: "tmidity")
+      items << ConvItem.new(input: ["midi"], output: ["wav"], command: "timidity {input} -Ow -o {output}", substitute: "{}", package: "tmidity")
       items << ConvItem.new(input: ["sam", "gtf"], output: ["txt"], command: "htseq-count {input} {input} > {output}", substitute: "{}", package: "htseq", pacman: "pip install")
       items << ConvItem.new(input: ["bam", "gtf"], output: ["txt"], command: "htseq-count -f bam {input} {input} > {output}", substitute: "{}", package: "htseq", pacman: "pip install")
-      ["png", "pdf", "ps", "jpg"].each do |i|
+      ["png", "pdf", "ps", "jpg", "svg"].each do |i|
         items << ConvItem.new(input: ["dot"], output: [i], command: "dot -T#{i} {input} > {output}", substitute: "{}", package: "graphviz")
+        items << ConvItem.new(input: ["dot"], output: [i], command: "neato -T#{i} {input} > {output}", substitute: "{}", package: "graphviz")
       end
       ["png", "jpg", "tif", "bmp", "gif"].permutation(2).each do |i, j|
         items << ConvItem.new(input: [i], output: [j], command: "convert {input} {output}", substitute: "{}", package: "imagemagick")
@@ -84,16 +89,44 @@ module Conv
       items << ConvItem.new(input: ["wav"], output: ["mp3"], command: "lame {input} {output}", substitute: "{}", package: "lame")
       items << ConvItem.new(input: ["wav"], output: ["mp3"], command: "avconv -i {input} {output}", substitute: "{}", package: "libav")
       items << ConvItem.new(input: ["md"], output: ["html"], command: "python -m markdown {input} > {output}", substitute: "{}", package: "markdown", pacman: "pip install")
+      items << ConvItem.new(input: ["markdown"], output: ["html"], command: "python -m markdown {input} > {output}", substitute: "{}", package: "markdown", pacman: "pip install")
       items << ConvItem.new(input: ["md"], output: ["html"], command: "pandoc -f markdown_github {input} > {output}", substitute: "{}", package: "pandoc")
+      items << ConvItem.new(input: ["markdown"], output: ["html"], command: "pandoc -f markdown_github {input} > {output}", substitute: "{}", package: "pandoc")
+
+      # Compile without options.
+      items << ConvItem.new(input: ["c"], output: ["o"], command: "gcc -c -o {output} {input}", package: "gcc", lang: "c")
+      items << ConvItem.new(input: ["c"], output: ["out"], command: "gcc -o {output} {input}", package: "gcc", lang: "c")
+      items << ConvItem.new(input: ["c"], output: ["o"], command: "clang -c -o {output} {input}", package: "clang", lang:"c")
+      items << ConvItem.new(input: ["c"], output: ["out"], command: "clang -o {output} {input}", package: "clang", lang:"c")
+      items << ConvItem.new(input: ["cpp"], output: ["o"], command: "g++ -c -o {output} {input}", package: "g++", lang: "c++")
+      items << ConvItem.new(input: ["cpp"], output: ["out"], command: "g++ -o {output} {input}", package: "g++", lang: "c++")
+      items << ConvItem.new(input: ["cpp"], output: ["o"], command: "clang++ -c -o {output} {input}", package: "clang", lang: "c++")
+      items << ConvItem.new(input: ["cpp"], output: ["out"], command: "clang++ -o {output} {input}", package: "clang", lang: "c++")
+      items << ConvItem.new(input: ["cc"], output: ["o"], command: "g++ -c -o {output} {input}", package: "g++", lang: "c++")
+      items << ConvItem.new(input: ["cc"], output: ["out"], command: "g++ -o {output} {input}", package: "g++", lang: "c++")
+      items << ConvItem.new(input: ["cc"], output: ["o"], command: "clang++ -c -o {output} {input}", package: "clang", lang: "c++")
+      items << ConvItem.new(input: ["cc"], output: ["out"], command: "clang++ -o {output} {input}", package: "clang", lang: "c++")
+
+      items << ConvItem.new(input: ["rs"], output: ["out"], command: "rustc -o {output} {input}", package: "rust", lang: "rust", warning: "Use cargo")
+      items << ConvItem.new(input: ["hs"], output: ["out"], command: "ghc -o {output} {input}", package: "ghc", lang: "haskell", warning: "Use cabal / stack")
+      items << ConvItem.new(input: ["d"], output: ["out"], command: "gdc -o {output} {input}", package: "gdc", lang: "d")
+      items << ConvItem.new(input: ["cr"], output: ["out"], command: "crystal build -o {output} {input}", package: "crystal", lang: "crystal")
+      items << ConvItem.new(input: ["cr"], output: ["out"], command: "mlton -output {output} {input}", package: "mlton", lang: "standard ML")
+      items << ConvItem.new(input: ["swift"], output: ["out"], command: "swiftc -o {output} {input}", package: "swift", lang: "swift")
+      items << ConvItem.new(input: ["go"], output: ["out"], command: "go build -o {output} {input}", package: "go", lang: "golang")
+      items << ConvItem.new(input: ["ts"], output: ["js"], command: "tsc {input}", package: "typescript", lang: "typescript", pacman: "npm install -g")
+      #items << ConvItem.new(input: ["pas"], output: ["out"], command: "fpc -o {output} {input}", package: "go", lang: "golang")
+
       items
     end
   end
 
   class ConvItem
-    attr_accessor :input, :output, :command, :package, :substitute, :last_access, :pacman, :output_buffer, :input_path, :output_path
+    attr_accessor :input, :output, :command, :package, :substitute, :last_access, :pacman, :output_buffer, :input_path, :output_path, :type, :lang, :warning
 
     def initialize **params
       Config.load_and_set_settings(Dir.home + ".conv")
+      @type |= :convert
       @package_manager = Settings.package_manager
       params.each{|k,v| self.send("#{k}=", v) if self.methods.include?(k)}
     end
