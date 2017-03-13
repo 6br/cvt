@@ -19,6 +19,7 @@ module Conv
     option :quiet, type: :boolean, aliases: '-q', desc: "Run quietly."
     option :dryrun, type: :boolean, aliases: '-d', desc: "Do not execute command."
     option :package_manager, type: :array, aliases: '-p', desc: "Set Package manager prefix such as 'brew install'"
+    #option :arguments, type: :string, aliases: '-a', desc: "Set arguments to provide a certain command such as '-O2'"
     def convert(*inputs, output) # Define commands as a method.
       prompt = TTY::Prompt.new(interrupt: :exit)
       items = Conv.new.find_item(inputs, output, input_format=input_format, output_format=output_format, package_manager: options[:package_manager])
@@ -33,7 +34,7 @@ module Conv
           end
           prompt.ok candidate.cmd(inputs, output) unless options[:quiet]
           return if !options[:overwrite] && !ask_overwrite(output) || options[:dryrun]
-          status, stdout, stderr = candidate.run!(inputs, output)
+          status, stdout, stderr = candidate.run!(inputs, output, options[:arguments])
           prompt.ok stdout
           prompt.error stderr
           if status != 0

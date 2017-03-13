@@ -16,6 +16,11 @@ Install it yourself as:
 
 ## Examples
 
+To compile programs:
+
+    $ ffc convert sample.c a.out
+    $ ffc c sample.c a.out
+
 To convert markdown file to HTML file:
 
     $ ffc convert a.md a.html

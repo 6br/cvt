@@ -114,8 +114,13 @@ module Conv
       items << ConvItem.new(input: ["cr"], output: ["out"], command: "mlton -output {output} {input}", package: "mlton", lang: "standard ML")
       items << ConvItem.new(input: ["swift"], output: ["out"], command: "swiftc -o {output} {input}", package: "swift", lang: "swift")
       items << ConvItem.new(input: ["go"], output: ["out"], command: "go build -o {output} {input}", package: "go", lang: "golang")
+
+      # https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-js
       items << ConvItem.new(input: ["ts"], output: ["js"], command: "tsc {input}", package: "typescript", lang: "typescript", pacman: "npm install -g")
-      #items << ConvItem.new(input: ["pas"], output: ["out"], command: "fpc -o {output} {input}", package: "go", lang: "golang")
+      items << ConvItem.new(input: ["coffee"], output: ["js"], command: "coffee {input}", package: "coffee-script", lang: "coffee-script", pacman: "npm install -g")
+      items << ConvItem.new(input: ["rb"], output: ["js"], command: "opal -c {input} > {output}", lang: "opal", package: "opal", pacman: "gem install")
+      items << ConvItem.new(input: ["lua"], output: ["out"], command: "luac -o {output} {input}", package: "lua", lang: "lua")
+      items << ConvItem.new(input: ["lua"], output: ["out"], command: "luajit -b {input} {output}", package: "luajit", lang: "lua")
 
       items
     end
@@ -160,7 +165,7 @@ module Conv
       return self.output.to_s + " " + self.cmd(@input_path, @output_path) + "  (" + self.package + ")"
     end
 
-    def run!(inputs, output)
+    def run!(inputs, output, arguments="")
       raise "Error -- no input file" unless inputs.all?{ |t| Pathname(t).exist?}
       status, stdout, stderr = systemu self.cmd(inputs, output)
 
