@@ -4,6 +4,7 @@ require "stringio"
 require 'coveralls'
 require "simplecov"
 SimpleCov.start
+Coveralls.wear!
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -13,4 +14,3 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
-Coveralls.wear!
