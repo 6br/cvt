@@ -86,6 +86,9 @@ module Conv
       ["png", "jpg", "tif", "bmp", "gif"].permutation(2).each do |i, j|
         items << ConvItem.new(input: [i], output: [j], command: "convert {input} {output}", substitute: "{}", package: "imagemagick")
       end
+      ["png", "jpg", "tif", "bmp", "gif"].each do |j|
+        items << ConvItem.new(input: ["svg"], output: [j], command: "convert {input} {output}", substitute: "{}", package: "imagemagick")
+      end
       items << ConvItem.new(input: ["wav"], output: ["mp3"], command: "lame {input} {output}", substitute: "{}", package: "lame")
       items << ConvItem.new(input: ["wav"], output: ["mp3"], command: "avconv -i {input} {output}", substitute: "{}", package: "libav")
       items << ConvItem.new(input: ["md"], output: ["html"], command: "python -m markdown {input} > {output}", substitute: "{}", package: "markdown", pacman: "pip install")
