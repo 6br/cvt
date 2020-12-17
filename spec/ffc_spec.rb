@@ -10,7 +10,7 @@ RSpec.describe Conv do
   end
 
   it "should display output when no candidates" do
-    expect {Conv::CLI.new.invoke(:convert, ["spec/sample/a.sam", "b.non"], {hidelist: true})}.to output("No candidates.").to_stdout
+    expect {Conv::CLI.new.invoke(:convert, ["spec/sample/a.sam", "b.non"], {hidelist: true})}.to output("No candidates.\n").to_stdout
   end
 
   it "should display error when no file" do
